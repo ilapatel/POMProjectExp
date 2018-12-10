@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    <logintab>//a[contains(text(),'4. Login')]</logintab>
+    <email>username</email>
+    <password>password</password>
+    <loginbtn>FormsButton2</loginbtn>
+</menu>
