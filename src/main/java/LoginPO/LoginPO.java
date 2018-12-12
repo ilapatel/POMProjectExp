@@ -3,6 +3,8 @@ package LoginPO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,11 +13,19 @@ public class LoginPO {
 
     public LoginPO(WebDriver driver) {
         this.driver=driver;
+        //This initElements method will create all WebElements
+
+        PageFactory.initElements(driver, this);
     }
 
     /********************** Start Locators **********************/
 
-    public By loginLink_xpath=By.xpath("//a[contains(.,'4. Login')]");
+    //public By loginLink_xpath=By.xpath("//a[contains(.,'4. Login')]");
+
+    @FindBy(xpath="//a[contains(.,'4. Login')]")
+
+    WebElement loginLink;
+
     public By username_xpath=By.xpath("//input[@name='username']");
     public By password_xpath=By.xpath("//input[@name='password']");
     public By loginButton_xpath=By.xpath("//input[@type='button']");
@@ -24,6 +34,24 @@ public class LoginPO {
     /********************** End Locators **********************/
 
     /********************** Start Methods **********************/
+
+    //Click on element
+    public  boolean clickOnElem() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 50);
+
+            wait.until(ExpectedConditions.elementToBeClickable(loginLink));
+
+            wait.until(ExpectedConditions.elementToBeClickable(loginLink));
+
+            loginLink.click();
+
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     //Click on element
     public  boolean clickOnElement(By webElement) {

@@ -44,7 +44,7 @@ public class LoginTC extends BaseTest {
         String password="IlaPatel";
 
         //Step-2: Click on 'Login' Link
-        Assert.assertTrue(loginPO.clickOnElement(loginPO.loginLink_xpath), "Unable to Click on 'Login' Link");
+        Assert.assertTrue(loginPO.clickOnElement(), "Unable to Click on 'Login' Link");
         ExtentTestManager.getTest().log(LogStatus.PASS, "Click on 'Login' Link", "Clicked 'Login' Link");
 
         //Step-3: Enter Username

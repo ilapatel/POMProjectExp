@@ -2,18 +2,13 @@ package TS;
 
 import Base.BaseTest;
 import ExtendReport.ExtentTestManager;
-import PO.PropertiesFilePO;
 import PO.XMLfilePO;
 import SighUpTS.SighUPTC;
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.io.File;
 import java.io.IOException;
 import org.dom4j.*;
-import org.dom4j.io.SAXReader;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
