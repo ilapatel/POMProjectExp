@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,24 +13,31 @@ public class LoginPO {
     public WebDriver driver;
 
     public LoginPO(WebDriver driver) {
-        this.driver=driver;
-        //This initElements method will create all WebElements
 
+        this.driver=driver;
+
+        //This initElements method will create all WebElements
+  /*      AjaxElementLocatorFactory factory = new AjaxElementLocatorFactory(driver,100);
+        PageFactory.initElements(factory, this);*/
         PageFactory.initElements(driver, this);
     }
 
     /********************** Start Locators **********************/
 
-    //public By loginLink_xpath=By.xpath("//a[contains(.,'4. Login')]");
-
     @FindBy(xpath="//a[contains(.,'4. Login')]")
-
     WebElement loginLink;
 
-    public By username_xpath=By.xpath("//input[@name='username']");
-    public By password_xpath=By.xpath("//input[@name='password']");
-    public By loginButton_xpath=By.xpath("//input[@type='button']");
-    public By successMsg_xpath=By.xpath("//b[contains(.,'**Successful Login**')]");
+    @FindBy(xpath = "//input[@name='username']")
+    public WebElement username;
+
+    @FindBy(xpath = "//input[@name='password']")
+    public WebElement password;
+
+    @FindBy(xpath = "//input[@type='button']")
+    public WebElement loginButton;
+
+    @FindBy(xpath = "//b[contains(.,'**Successful Login**')]")
+    public WebElement successMsg;
 
     /********************** End Locators **********************/
 
@@ -54,14 +62,13 @@ public class LoginPO {
     }
 
     //Click on element
-    public  boolean clickOnElement(By webElement) {
+    public  boolean clickOnElement(WebElement webElement) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, 50);
             wait.until(ExpectedConditions.elementToBeClickable(webElement));
 
             wait.until(ExpectedConditions.elementToBeClickable(webElement));
-            WebElement generic_WebL = (new WebDriverWait(driver, 90))
-                    .until(ExpectedConditions.presenceOfElementLocated(webElement));
+            WebElement generic_WebL = webElement;
             generic_WebL.click();
             return true;
 
@@ -71,14 +78,13 @@ public class LoginPO {
     }
 
     //Enter data
-    public boolean inputText(By webElement, String inputTextData){
+    public boolean inputText(WebElement webElement, String inputTextData){
         try{
 
             WebDriverWait wait = new WebDriverWait(driver, 50);
             wait.until(ExpectedConditions.elementToBeClickable(webElement));
 
-            WebElement input= (new WebDriverWait(driver,30)).
-                    until(ExpectedConditions.presenceOfElementLocated(webElement));
+            WebElement input= webElement;
 
             input.click();
             input.clear();
@@ -91,11 +97,13 @@ public class LoginPO {
         }
     }
 
-    public boolean verifyFileds(By fieldxpath) {
+    public boolean verifyFileds(WebElement fieldxpath) {
         try {
 
-            WebElement filds = (new WebDriverWait(driver, 90))
-                    .until(ExpectedConditions.visibilityOfElementLocated(fieldxpath));
+            WebDriverWait wait = new WebDriverWait(driver, 50);
+            wait.until(ExpectedConditions.elementToBeClickable(fieldxpath));
+
+            WebElement filds = fieldxpath;
             if (filds.isDisplayed()) {
                 return false;
             } else {

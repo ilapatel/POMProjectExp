@@ -24,8 +24,8 @@ public class LoginTC extends BaseTest {
 
 
     //Created by: Ila Patel
-    @Test
-    public void loginSuccessfully(){
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void loginSuccessfully() throws InterruptedException {
 
         if (flag > 0) {
             ExtentTestManager.getTest().getTest().setName("Test-2:login Successfully");
@@ -48,22 +48,22 @@ public class LoginTC extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.PASS, "Click on 'Login' Link", "Clicked 'Login' Link");
 
         //Step-3: Enter Username
-        Assert.assertTrue(loginPO.inputText(loginPO.username_xpath,userName), "Unable to Enter Username");
+        Assert.assertTrue(loginPO.inputText(loginPO.username,userName), "Unable to Enter Username");
         ExtentTestManager.getTest().log(LogStatus.PASS, "Enter Username", "Test data :"+userName);
 
         //Step-4: Enter Password
-        Assert.assertTrue(loginPO.inputText(loginPO.password_xpath,password), "Unable to Enter Password");
+        Assert.assertTrue(loginPO.inputText(loginPO.password,password), "Unable to Enter Password");
         ExtentTestManager.getTest().log(LogStatus.PASS, "Enter Password", "Test data :"+password);
 
         //Step-5: Click on 'Test Login' button
-        Assert.assertTrue(loginPO.clickOnElement(loginPO.loginButton_xpath), "Unable to Click on 'Test Login' button");
+        Assert.assertTrue(loginPO.clickOnElement(loginPO.loginButton), "Unable to Click on 'Test Login' button");
         ExtentTestManager.getTest().log(LogStatus.PASS, "Click on 'Test Login' button", "Clicked 'Test Login' button");
     }
 
 
     //Created by: Ila Patel
     @Test
-    public void verifyLoginSuccessfullyMsg(){
+    public void verifyLoginSuccessfullyMsg() throws InterruptedException {
 
         if (flag > 0) {
             ExtentTestManager.getTest().getTest().setName("Test-3:Verify Login Successfully Msg display");
@@ -79,7 +79,7 @@ public class LoginTC extends BaseTest {
         LoginPO loginPO=new LoginPO(driver);
 
         //Step-2: Verify login successfully Msg display
-        Assert.assertFalse(loginPO.verifyFileds(loginPO.successMsg_xpath), "Unable to display successfully Msg");
+        Assert.assertFalse(loginPO.verifyFileds(loginPO.successMsg), "Unable to display successfully Msg");
         ExtentTestManager.getTest().log(LogStatus.PASS, "Verify login successfully Msg display", "login successfully Msg is display");
 
     }

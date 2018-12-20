@@ -5,14 +5,18 @@ import ExtendReport.ExtentTestManager;
 import ExtendReport.listner.AnnotationTransformer;
 import ExtendReport.listner.TestListener;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 @Listeners({AnnotationTransformer.class, TestListener.class})
@@ -24,10 +28,10 @@ public class BaseTest {
     }
 
 
-    @Parameters({"browserName", "url"})
+    @Parameters({"selGrid","nodeURL","browserName", "url"})
     @BeforeMethod
-    public void beforeSuite(String browserName, @Optional("http://www.google.co.in") String url, Method method) throws Exception {
-        getDriver(browserName);
+    public void beforeSuite(@Optional("false") boolean selGrid,String nodeURL,String browserName, @Optional("http://www.google.co.in") String url, Method method) throws Exception {
+        getDriver(selGrid,nodeURL,browserName);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get(url);
@@ -54,9 +58,15 @@ public class BaseTest {
     }
 
 
-    public WebDriver getDriver(String browserName)throws Exception{
+    public WebDriver getDriver(boolean selGrid,String nodeURL,String browserName)throws Exception{
         try {
-            if (browserName.equalsIgnoreCase("chrome")){
+            if(selGrid){
+                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+                capabilities.setBrowserName(browserName);
+                capabilities.setPlatform(Platform.WIN10);
+                this.driver = new RemoteWebDriver(new URL(nodeURL),capabilities);
+                this.driver.manage().timeouts().implicitlyWait(20L,TimeUnit.SECONDS);
+            }else if(browserName.equalsIgnoreCase("chrome")){
                 System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\Driver\\chromedriver.exe");
                 this.driver=new ChromeDriver();
             }else if(browserName.equalsIgnoreCase("firefox")){
