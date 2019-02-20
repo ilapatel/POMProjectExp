@@ -8,6 +8,8 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -60,21 +62,21 @@ public class BaseTest {
 
     public WebDriver getDriver(boolean selGrid,String nodeURL,String browserName)throws Exception{
         try {
-            if(selGrid){
+/*            if(selGrid){
                 DesiredCapabilities capabilities = DesiredCapabilities.chrome();
                 capabilities.setBrowserName(browserName);
                 capabilities.setPlatform(Platform.WIN10);
                 this.driver = new RemoteWebDriver(new URL(nodeURL),capabilities);
                 this.driver.manage().timeouts().implicitlyWait(20L,TimeUnit.SECONDS);
-            }else if(browserName.equalsIgnoreCase("chrome")){
+            }else */if(browserName.equalsIgnoreCase("chrome")){
                 System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\Driver\\chromedriver.exe");
                 this.driver=new ChromeDriver();
             }else if(browserName.equalsIgnoreCase("firefox")){
                 System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir")+"\\Driver\\geckodriver.exe");
                 this.driver=new FirefoxDriver();
-            }else if(browserName.equalsIgnoreCase("ie")){
-                System.setProperty("webdriver.ie.driver", System.getProperty("user.dir")+"\\Driver\\MicrosoftWebDriver.exe");
-                this.driver=new InternetExplorerDriver();
+            }else if(browserName.equalsIgnoreCase("edge")){
+                System.setProperty("webdriver.edge.driver", System.getProperty("user.dir")+"\\Driver\\MicrosoftWebDriver.exe");
+                this.driver= new EdgeDriver();
             }else {
                 System.out.println("Kindly Provide Proper Browser Name: It's supports only chrome,firefox and IE");
             }
