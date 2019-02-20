@@ -18,19 +18,23 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-<!--            <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>RELEASE</version>
+                <version>2.19.1</version>
                 <configuration>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <suiteXmlFiles>
-                        <suiteXmlFile>AllTestRunner.xml</suiteXmlFile>
+                        <suiteXmlFile>target/test-classes/${pomTRunner}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
-            </plugin>-->
+            </plugin>
         </plugins>
     </build>
-
+    <properties>
+        <pomTRunner>AllTestRunner.xml</pomTRunner>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
 
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
