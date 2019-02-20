@@ -50,6 +50,7 @@ public class SighUPTC extends BaseTest {
         //Step-4: Click on 'Save' button
         Assert.assertTrue(sighUpPO.clickOnElement(sighUpPO.saveButton), "Unable to Click on 'Save' button");
         ExtentTestManager.getTest().log(LogStatus.PASS, "Click on 'Save' button", "Clicked 'Save' button");
+
     }
 
 }
